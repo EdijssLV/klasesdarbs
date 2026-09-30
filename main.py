@@ -11,8 +11,11 @@ response = requests.get(
 
 response.raise_for_status()
 
-soup = BeautifulSoup(response.text, "html.parser")
 
-text = soup.get_text(separator="\n", strip=True)
+def scrape():
+    soup = BeautifulSoup(response.text, "html.parser")
+    products = soup.find_all("li", class_="product-grid__item")
 
-print(text)
+    print(products)
+
+scrape()
