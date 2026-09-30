@@ -4,10 +4,6 @@ from bs4 import BeautifulSoup
 
 from links import links
 
-
-
-
-
 def scrape(url):
 
     response = requests.get(
@@ -77,6 +73,17 @@ def scrape(url):
         print(f"Weight: {weight}")
         print(f"Price: {price}")
         print("---")
+
+        # PAGINATION
+        next_page = soup.find("a", rel="next")
+        if next_page:
+            url = next_page.get("href")
+
+            if url.startswith("/"):
+                url = "https://www.rimi.lv" + url
+
+        else:
+            url = None
 
 
 for url in links:
